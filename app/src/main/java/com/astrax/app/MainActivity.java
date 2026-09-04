@@ -1,13 +1,22 @@
 package com.astrax.app;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,6 +26,45 @@ public class MainActivity extends AppCompatActivity {
     private TextView toolsListText;
     private TextView otherScreenTitle;
     private View emergencyStudyLayer;
+    private BottomNavigationView bottomNav;
+
+    // 165+ Tools Search Database
+    private final String[] allToolsDatabase = {
+        "🤖 AI Studio: AI Text Writer & Chat",
+        "🤖 AI Studio: AI Image Generator",
+        "🤖 AI Studio: AI Background Remover",
+        "🤖 AI Studio: AI Voice & Speech Clone",
+        "🤖 AI Studio: AI Code Explainer",
+        "🤖 AI Studio: AI Photo Enhancer",
+        "🤖 AI Studio: AI Face Swap",
+        "🤖 AI Studio: AI Video Script Generator",
+        "📶 Offline: Flashlight Strobe & SOS",
+        "📶 Offline: Offline Unit Converter",
+        "📶 Offline: Compass & Spirit Level",
+        "📶 Offline: Scientific Calculator",
+        "📶 Offline: Offline Notepad Vault",
+        "📶 Offline: Sound Meter (dB)",
+        "🎭 Privacy: Screen Peep Blocker",
+        "🎭 Privacy: Intruder Selfie Catcher",
+        "🎭 Privacy: Fake Incoming Call",
+        "🎭 Privacy: App Locker & Vault",
+        "🎭 Privacy: EXIF Photo Metadata Cleaner",
+        "🎬 Entertainment: Reels Player",
+        "🎬 Entertainment: Cinema Movies Hub",
+        "💬 Social: Encrypted Chat & PIN Vault",
+        "📥 Savers: Insta HD DP & Status Saver",
+        "📥 Savers: WhatsApp Direct Message",
+        "📥 Savers: Video to MP3 Audio Extractor",
+        "📑 Office & PDF: Images to PDF Converter",
+        "📑 Office & PDF: PDF Compressor",
+        "📑 Office & PDF: QR Code Generator & Scanner",
+        "📑 Office & PDF: Digital Signature Maker",
+        "₹ Desi Life: Bijli Bill Calculator",
+        "₹ Desi Life: Loan EMI & Byaj Ganit",
+        "₹ Desi Life: Gold Price & GST Calculator",
+        "₹ Desi Life: Vehicle RC & Challan Status",
+        "₹ Desi Life: Train PNR & Live Running Info"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,128 +76,202 @@ public class MainActivity extends AppCompatActivity {
         toolsCategoryTitle = findViewById(R.id.tools_category_title);
         toolsListText = findViewById(R.id.tools_list_text);
         otherScreenTitle = findViewById(R.id.other_screen_title);
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav = findViewById(R.id.bottom_navigation);
         FloatingActionButton fabPanic = findViewById(R.id.fab_panic);
         emergencyStudyLayer = findViewById(R.id.emergency_study_layer);
         Button btnCloseEmergency = findViewById(R.id.btn_close_emergency);
         Button btnBackToHome = findViewById(R.id.btn_back_to_home);
 
-        // Header VIP click
-        View crownBtn = findViewById(R.id.btn_vip_crown);
-        if (crownBtn != null) {
-            crownBtn.setOnClickListener(v -> Toast.makeText(this, "VIP Plan: ₹9/day or ₹99/month", Toast.LENGTH_SHORT).show());
+        // Header VIP Button
+        bindClick(R.id.btn_vip_crown, v -> 
+            Toast.makeText(this, "👑 AstraX VIP: ₹9/Day Pass | ₹99/Month All-Access", Toast.LENGTH_LONG).show());
+
+        // Header Search (🔍)
+        bindClick(R.id.btn_search, v -> openSearchDialog());
+
+        // Header Menu (⋮)
+        bindClick(R.id.btn_menu, v -> 
+            Toast.makeText(this, "AstraX SuperApp v1.0 • Privacy Engine Active", Toast.LENGTH_SHORT).show());
+
+        // Back to Home from inside Tools
+        if (btnBackToHome != null) {
+            btnBackToHome.setOnClickListener(v -> showHomeScreen());
         }
 
-        // Back to Home button from inside tools
-        btnBackToHome.setOnClickListener(v -> showHomeScreen());
-
-        // 1. AI Studio (1 - 25)
-        findViewById(R.id.card_home_ai).setOnClickListener(v -> openCategory(
-            "🤖 AI Studio (1 – 25)",
-            "1. AI Text Writer & Chat\n2. AI Image Generator\n3. AI Background Remover\n4. AI Voice & Speech Clone\n5. AI Code Explainer\n6. AI Essay & Homework Solver\n7. AI Photo Enhancer\n8. AI Face Swap\n9. AI Video Script Generator\n10. AI Grammar Checker\n...aur 15 aur AI tools!"
-        ));
-
-        // 2. Offline Tools (26 - 50)
-        findViewById(R.id.card_home_offline).setOnClickListener(v -> openCategory(
-            "📶 Offline Tools (26 – 50)",
-            "26. Flashlight Strobe & SOS\n27. Offline Unit Converter\n28. Compass & Leveler\n29. Scientific Calculator\n30. Offline Notepad & Notes\n31. Stop Watch & Timer\n32. Sound Meter (dB)\n33. Offline Counter\n34. Morse Code Flasher\n...aur 16 bina internet wale tools!"
-        ));
-
-        // 3. Privacy Tools (51 - 70)
-        findViewById(R.id.card_home_privacy).setOnClickListener(v -> openCategory(
-            "🎭 Privacy Tools (51 – 70)",
-            "51. Screen Peep Blocker (Black filter)\n52. Intruder Selfie (Chori-chhupe kholne wale ki photo)\n53. Fake Call Generator\n54. App Locker\n55. Fake GPS Spoof Info\n56. EXIF Metadata Cleaner\n57. Cam/Mic Spy Detector\n...aur 13 aur privacy rakshak tools!"
-        ));
-
-        // 4. Reels (Direct Bottom Navigation)
-        findViewById(R.id.card_home_reels).setOnClickListener(v -> bottomNav.setSelectedItemId(R.id.nav_reels));
-
-        // 5. Movies (Direct Bottom Navigation)
-        findViewById(R.id.card_home_movies).setOnClickListener(v -> bottomNav.setSelectedItemId(R.id.nav_movies));
-
-        // 6. Chat (Direct Bottom Navigation)
-        findViewById(R.id.card_home_chat).setOnClickListener(v -> bottomNav.setSelectedItemId(R.id.nav_chat));
-
-        // 7. Social Savers (71 - 90)
-        findViewById(R.id.card_home_savers).setOnClickListener(v -> openCategory(
-            "📥 Social Savers (71 – 90)",
-            "71. Insta HD DP Viewer\n72. Status & Story Saver\n73. Direct WhatsApp Chat without saving number\n74. Hashtag Generator\n75. Caption Creator\n76. Video Audio Extractor\n77. Thumbnail Downloader\n...aur 13 social media savers!"
-        ));
-
-        // 8. Office & PDF (91 - 110)
-        findViewById(R.id.card_home_office).setOnClickListener(v -> openCategory(
-            "📑 Office & PDF Tools (91 – 110)",
-            "91. Images to PDF Converter\n92. PDF Compressor\n93. PDF Password Protector\n94. Resume & Bio-Data Maker\n95. QR Code Generator & Scanner\n96. OCR Image-to-Text Reader\n97. Digital Signature Maker\n...aur 13 zaroori office tools!"
-        ));
-
-        // 9. Desi Life (111 - 130)
-        findViewById(R.id.card_home_desi).setOnClickListener(v -> openCategory(
-            "₹ Desi Life & Utilities (111 – 130)",
-            "111. Bijli Bill Calculator\n112. EMI & Interest Byaj Ganit\n113. Gold Price & GST Calculator\n114. Vehicle Challan & RTO Finder\n115. PNR Status & Train Live Info\n116. Bhulekh & Khasra-Khatauni Guide\n117. Rashan Card Search\n...aur 13 desi daily life tools!"
-        ));
-
-        // Hero Banner & View All Click
-        findViewById(R.id.hero_tools_banner).setOnClickListener(v -> openCategory(
+        // Hero Banner & View All
+        bindClick(R.id.hero_tools_banner, v -> openCategory(
             "🪐 AstraX 165+ Master Hub",
-            "AstraX ke sabhi 165 powerful tools categories ke andar active hain. Kisi bhi category card par click karke uske tools ko direct access karo!"
+            "AstraX ke sabhi 165 tools active hain. Kisi bhi category ya 🔍 Search se turant chalayein!"
         ));
-        findViewById(R.id.btn_view_all).setOnClickListener(v -> openCategory(
-            "🪐 All 165+ Tools Categories",
-            "• AI Studio (1 - 25)\n• Offline Tools (26 - 50)\n• Privacy Tools (51 - 70)\n• Social Savers (71 - 90)\n• Office & PDF (91 - 110)\n• Desi Life (111 - 130)\n• Media & Audio (131 - 150)\n• Extra Pro Tools (151 - 165+)"
+        bindClick(R.id.btn_view_all, v -> openCategory(
+            "🪐 All Categories",
+            "• AI Studio (1 - 25)\n• Offline Tools (26 - 50)\n• Privacy Tools (51 - 70)\n• Social Savers (71 - 90)\n• Office & PDF (91 - 110)\n• Desi Life (111 - 130)"
+        ));
+
+        // 9 Category Boxes
+        bindClick(R.id.card_home_ai, v -> openCategory(
+            "🤖 AI Studio (1 – 25)",
+            "1. AI Text Writer & Chat\n2. AI Image Generator\n3. AI Background Remover\n4. AI Voice & Speech Clone\n5. AI Code Explainer\n6. AI Essay & Homework Solver\n7. AI Photo Enhancer\n8. AI Face Swap\n...aur 17 AI tools!"
+        ));
+
+        bindClick(R.id.card_home_offline, v -> openCategory(
+            "📶 Offline Tools (26 – 50)",
+            "26. Flashlight Strobe & SOS\n27. Offline Unit Converter\n28. Compass & Leveler\n29. Scientific Calculator\n30. Offline Notepad Vault\n31. Stop Watch & Timer\n...aur 19 offline tools!"
+        ));
+
+        bindClick(R.id.card_home_privacy, v -> openCategory(
+            "🎭 Privacy Tools (51 – 70)",
+            "51. Screen Peep Blocker\n52. Intruder Selfie Catcher\n53. Fake Incoming Call\n54. App Locker\n55. Fake GPS Spoof Guide\n56. EXIF Photo Cleaner\n...aur 14 privacy tools!"
+        ));
+
+        bindClick(R.id.card_home_reels, v -> {
+            if (bottomNav != null) bottomNav.setSelectedItemId(R.id.nav_reels);
+        });
+
+        bindClick(R.id.card_home_movies, v -> {
+            if (bottomNav != null) bottomNav.setSelectedItemId(R.id.nav_movies);
+        });
+
+        bindClick(R.id.card_home_chat, v -> {
+            if (bottomNav != null) bottomNav.setSelectedItemId(R.id.nav_chat);
+        });
+
+        bindClick(R.id.card_home_savers, v -> openCategory(
+            "📥 Social Savers (71 – 90)",
+            "71. Insta HD DP Viewer\n72. Status & Story Saver\n73. Direct WhatsApp Chat\n74. Viral Hashtags Generator\n75. Video to MP3 Extractor\n...aur 15 social tools!"
+        ));
+
+        bindClick(R.id.card_home_office, v -> openCategory(
+            "📑 Office & PDF Tools (91 – 110)",
+            "91. Images to PDF Converter\n92. PDF Compressor\n93. PDF Password Lock\n94. QR Code Scanner\n95. Digital Signature Maker\n...aur 15 office tools!"
+        ));
+
+        bindClick(R.id.card_home_desi, v -> openCategory(
+            "₹ Desi Life & Utilities (111 – 130)",
+            "111. Bijli Bill Calculator\n112. EMI & Byaj Ganit\n113. Gold Price & GST Calculator\n114. Vehicle RC & Challan Status\n115. Train PNR & Live Status\n...aur 15 desi tools!"
         ));
 
         // Bottom Navigation Tabs
-        bottomNav.setOnItemSelectedListener(item -> {
-            int itemId = item.getItemId();
-            if (itemId == R.id.nav_home) {
-                showHomeScreen();
-                return true;
-            } else {
-                homeLayout.setVisibility(View.GONE);
-                layoutToolsHub.setVisibility(View.GONE);
-                otherScreenTitle.setVisibility(View.VISIBLE);
-
-                if (itemId == R.id.nav_reels) {
-                    otherScreenTitle.setText("🎬 Reels Player");
-                } else if (itemId == R.id.nav_movies) {
-                    otherScreenTitle.setText("🍿 Movies & Cinema Hub");
-                } else if (itemId == R.id.nav_chat) {
-                    otherScreenTitle.setText("💬 Chat & Secret Vault");
-                } else if (itemId == R.id.nav_profile) {
-                    otherScreenTitle.setText("👤 VIP & Profile");
+        if (bottomNav != null) {
+            bottomNav.setOnItemSelectedListener(item -> {
+                int itemId = item.getItemId();
+                if (itemId == R.id.nav_home) {
+                    showHomeScreen();
+                    return true;
+                } else {
+                    if (homeLayout != null) homeLayout.setVisibility(View.GONE);
+                    if (layoutToolsHub != null) layoutToolsHub.setVisibility(View.GONE);
+                    if (otherScreenTitle != null) {
+                        otherScreenTitle.setVisibility(View.VISIBLE);
+                        if (itemId == R.id.nav_reels) otherScreenTitle.setText("🎬 Reels Player");
+                        else if (itemId == R.id.nav_movies) otherScreenTitle.setText("🍿 Movies & Cinema Hub");
+                        else if (itemId == R.id.nav_chat) otherScreenTitle.setText("💬 Chat & Secret Vault");
+                        else if (itemId == R.id.nav_profile) otherScreenTitle.setText("👤 VIP & Profile");
+                    }
+                    return true;
                 }
-                return true;
+            });
+        }
+
+        // Stealth Panic Mode
+        if (fabPanic != null) {
+            fabPanic.setOnClickListener(v -> {
+                if (emergencyStudyLayer != null) emergencyStudyLayer.setVisibility(View.VISIBLE);
+            });
+        }
+        if (btnCloseEmergency != null) {
+            btnCloseEmergency.setOnClickListener(v -> {
+                if (emergencyStudyLayer != null) emergencyStudyLayer.setVisibility(View.GONE);
+            });
+        }
+    }
+
+    private void bindClick(int viewId, View.OnClickListener listener) {
+        View target = findViewById(viewId);
+        if (target != null) {
+            target.setOnClickListener(listener);
+        }
+    }
+
+    private void openSearchDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("🔍 Search All 165+ Tools");
+
+        android.widget.LinearLayout dialogLayout = new android.widget.LinearLayout(this);
+        dialogLayout.setOrientation(android.widget.LinearLayout.VERTICAL);
+        dialogLayout.setPadding(40, 20, 40, 10);
+
+        final EditText searchInput = new EditText(this);
+        searchInput.setHint("Type tool name (PDF, AI, Reels, GPS)...");
+        dialogLayout.addView(searchInput);
+
+        final ListView searchResultsList = new ListView(this);
+        List<String> listData = new ArrayList<>(Arrays.asList(allToolsDatabase));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listData);
+        searchResultsList.setAdapter(adapter);
+        dialogLayout.addView(searchResultsList);
+
+        builder.setView(dialogLayout);
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+
+        AlertDialog dialog = builder.create();
+
+        searchInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                adapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+        searchResultsList.setOnItemClickListener((parent, view, position, id) -> {
+            String selectedTool = adapter.getItem(position);
+            dialog.dismiss();
+
+            if (selectedTool.contains("Reels") && bottomNav != null) {
+                bottomNav.setSelectedItemId(R.id.nav_reels);
+            } else if (selectedTool.contains("Movies") && bottomNav != null) {
+                bottomNav.setSelectedItemId(R.id.nav_movies);
+            } else if (selectedTool.contains("Chat") && bottomNav != null) {
+                bottomNav.setSelectedItemId(R.id.nav_chat);
+            } else {
+                openCategory("⚡ Instant Tool: " + selectedTool,
+                    "Selected: " + selectedTool + "\n\nStatus: 🟢 Ready to launch inside AstraX!");
             }
         });
 
-        // Panic Mode
-        fabPanic.setOnClickListener(v -> emergencyStudyLayer.setVisibility(View.VISIBLE));
-        btnCloseEmergency.setOnClickListener(v -> emergencyStudyLayer.setVisibility(View.GONE));
+        dialog.show();
     }
 
     private void openCategory(String title, String toolsList) {
-        homeLayout.setVisibility(View.GONE);
-        otherScreenTitle.setVisibility(View.GONE);
-        layoutToolsHub.setVisibility(View.VISIBLE);
+        if (homeLayout != null) homeLayout.setVisibility(View.GONE);
+        if (otherScreenTitle != null) otherScreenTitle.setVisibility(View.GONE);
+        if (layoutToolsHub != null) layoutToolsHub.setVisibility(View.VISIBLE);
 
-        toolsCategoryTitle.setText(title);
-        toolsListText.setText(toolsList);
+        if (toolsCategoryTitle != null) toolsCategoryTitle.setText(title);
+        if (toolsListText != null) toolsListText.setText(toolsList);
     }
 
     private void showHomeScreen() {
-        homeLayout.setVisibility(View.VISIBLE);
-        layoutToolsHub.setVisibility(View.GONE);
-        otherScreenTitle.setVisibility(View.GONE);
+        if (homeLayout != null) homeLayout.setVisibility(View.VISIBLE);
+        if (layoutToolsHub != null) layoutToolsHub.setVisibility(View.GONE);
+        if (otherScreenTitle != null) otherScreenTitle.setVisibility(View.GONE);
     }
 
     @Override
     public void onBackPressed() {
-        if (emergencyStudyLayer.getVisibility() == View.VISIBLE) {
+        if (emergencyStudyLayer != null && emergencyStudyLayer.getVisibility() == View.VISIBLE) {
             emergencyStudyLayer.setVisibility(View.GONE);
-        } else if (layoutToolsHub.getVisibility() == View.VISIBLE) {
+        } else if (layoutToolsHub != null && layoutToolsHub.getVisibility() == View.VISIBLE) {
             showHomeScreen();
         } else {
             super.onBackPressed();
         }
     }
-}
+                    }
+            
