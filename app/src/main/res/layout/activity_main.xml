@@ -223,7 +223,7 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <!-- 4. Social Savers (अब कोई डुप्लीकेट Reels डिब्बा नहीं) -->
+                <!-- 4. Social Savers -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/folder_savers"
                     android:layout_width="0dp"
@@ -243,7 +243,7 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <!-- 5. Office & PDF (अब कोई डुप्लीकेट Movies डिब्बा नहीं) -->
+                <!-- 5. Office & PDF -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/folder_office"
                     android:layout_width="0dp"
@@ -263,7 +263,7 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <!-- 6. Desi Life (अब कोई डुप्लीकेट Chat डिब्बा नहीं) -->
+                <!-- 6. Desi Life -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/folder_desi"
                     android:layout_width="0dp"
@@ -348,11 +348,16 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- 2. SUB-FOLDER TOOLS LIST (जब किसी फ़ोल्डर को खोलेंगे) -->
+    <!-- 2. SUB-FOLDER TOOLS LIST -->
     <LinearLayout
         android:id="@+id/view_subfolders"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_navigation"
         android:orientation="vertical"
-        android:back
+        android:background="#0B0B12"
+        android:padding="16dp"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width
