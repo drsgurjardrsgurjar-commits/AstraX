@@ -6,6 +6,11 @@
     <color name="surface_dark">#161622</color>
     <color name="surface_dark_alt">#1A1A2E</color>
 
+    <!-- Missing colors required by fragment_home.xml -->
+    <color name="black_bg">#0B0B12</color>
+    <color name="text_white">#FFFFFF</color>
+    <color name="card_bg">#161622</color>
+
     <!-- Tile / Folder gradients (start -> end) -->
     <color name="tile_ai_start">#1F1B3C</color>
     <color name="tile_ai_end">#3B1E78</color>
