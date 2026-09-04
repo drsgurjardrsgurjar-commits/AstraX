@@ -35,4 +35,73 @@
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_nav_menu" />
 
+    <!-- Floating Panic Switch (Stealth Trigger) -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_panic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@id/bottom_navigation"
+        android:layout_margin="16dp"
+        android:alpha="0.6"
+        android:src="@drawable/ic_panic"
+        app:backgroundTint="#FF4757"
+        app:tint="@color/text_white"
+        app:fabSize="mini" />
+
+    <!-- Emergency Study Mode Layer (Full-Screen NCERT Notes) -->
+    <LinearLayout
+        android:id="@+id/emergency_study_layer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#FFFFFF"
+        android:padding="20dp"
+        android:visibility="gone">
+
+        <!-- Top Bar with Safe Close -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Class 12 Physics - Quick Notes"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_close_emergency"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_alignParentEnd="true"
+                android:text="Back"
+                android:textSize="12sp"
+                android:backgroundTint="#2C3E50" />
+        </RelativeLayout>
+
+        <!-- Scrollable Realistic Physics Notes -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Chapter 4: Moving Charges and Magnetism\n\n1. Biot-Savart Law:\nThe magnetic field dB due to an element dl carrying a steady current I at a point P at distance r is given by:\ndB = (μ₀ / 4π) * (I dl sinθ) / r²\n\n2. Ampere's Circuital Law:\nThe line integral of magnetic induction B around any closed path in vacuum is equal to μ₀ times the total current threading the closed path:\n∮ B · dl = μ₀ I_enclosed\n\n3. Lorentz Force:\nWhen a charge q moves with velocity v in both electric (E) and magnetic (B) fields:\nF = q(E + v × B)\n\nChapter 5: Thermodynamics & Heat Laws\n\n1. First Law of Thermodynamics:\nΔQ = ΔU + ΔW\nwhere ΔQ is heat given, ΔU is change in internal energy, and ΔW is work done by system.\n\n2. Isothermal Process:\nTemperature remains constant (ΔT = 0). Hence ΔU = 0.\nW = nRT ln(V₂/V₁)\n\n3. Adiabatic Process:\nNo heat enters or leaves the system (ΔQ = 0).\nPV^γ = Constant"
+                    android:textColor="#333333"
+                    android:textSize="15sp"
+                    android:lineSpacingExtra="6dp" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
 </RelativeLayout>
