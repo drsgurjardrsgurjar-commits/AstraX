@@ -1,334 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_bg"
-    android:scrollbars="none">
+    android:background="@color/black_bg">
 
-    <LinearLayout
+    <!-- Main Content Frame -->
+    <FrameLayout
+        android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_navigation">
 
-        <!-- Top Header: AstraX + Subtitle + Crown + Action Icons -->
-        <RelativeLayout
+        <!-- 1. AstraX Home Layout -->
+        <include
+            android:id="@+id/layout_home_screen"
+            layout="@layout/fragment_home" />
+
+        <!-- 2. Tools Viewer Screen (Opens on card clicks) -->
+        <LinearLayout
+            android:id="@+id/layout_tools_hub"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="18dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="AstraX"
-                    android:textColor="@color/text_white"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="All-In-One Super App"
-                    android:textColor="#88889D"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/btn_vip_crown"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="👑"
-                    android:textSize="20sp"
-                    android:padding="6dp" />
-
-                <TextView
-                    android:id="@+id/btn_search"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🔍"
-                    android:textSize="18sp"
-                    android:padding="6dp" />
-
-                <TextView
-                    android:id="@+id/btn_menu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="⋮"
-                    android:textColor="@color/text_white"
-                    android:textSize="22sp"
-                    android:padding="6dp" />
-            </LinearLayout>
-        </RelativeLayout>
-
-        <!-- Purple Hero Card: 165+ Powerful Tools -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_marginBottom="20dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="#2A1B4E">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/black_bg"
+            android:padding="16dp"
+            android:visibility="gone">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="16dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="165+ Powerful Tools"
-                        android:textColor="@color/text_white"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="AI • Offline • Privacy • Media • Office\nMoney • System • More"
-                        android:textColor="#C4B5FD"
-                        android:textSize="12sp"
-                        android:lineSpacingExtra="3dp" />
-                </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
 
                 <TextView
+                    android:id="@+id/tools_category_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:text="🪐"
-                    android:textSize="36sp" />
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
+                    android:textColor="@color/text_white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-        <!-- Section Title: Quick Access -->
+                <Button
+                    android:id="@+id/btn_back_to_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_alignParentEnd="true"
+                    android:text="← Home"
+                    android:textSize="12sp"
+                    android:backgroundTint="#2A1B4E" />
+            </RelativeLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tools_list_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#D1D5DB"
+                    android:textSize="15sp"
+                    android:lineSpacingExtra="8dp" />
+            </ScrollView>
+        </LinearLayout>
+
+        <!-- 3. Other Bottom Nav Screens -->
+        <TextView
+            android:id="@+id/other_screen_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/text_white"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <!-- 5 Bottom Navigation Tabs -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/card_bg"
+        app:itemIconTint="@color/text_white"
+        app:itemTextColor="@color/text_white"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav_menu" />
+
+    <!-- Floating Panic Switch -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_panic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@id/bottom_navigation"
+        android:layout_margin="16dp"
+        android:alpha="0.6"
+        android:src="@drawable/ic_panic"
+        app:backgroundTint="#FF4757"
+        app:tint="@color/text_white"
+        app:fabSize="mini" />
+
+    <!-- Emergency Study Layer -->
+    <LinearLayout
+        android:id="@+id/emergency_study_layer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#FFFFFF"
+        android:padding="20dp"
+        android:visibility="gone">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Quick Access"
-                android:textColor="@color/text_white"
-                android:textSize="16sp"
+                android:text="Class 12 Physics - Quick Notes"
+                android:textColor="#000000"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <Button
+                android:id="@+id/btn_close_emergency"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="36dp"
                 android:layout_alignParentEnd="true"
-                android:text="View All"
-                android:textColor="#A78BFA"
-                android:textSize="13sp" />
+                android:text="Back"
+                android:textSize="12sp"
+                android:backgroundTint="#2C3E50" />
         </RelativeLayout>
 
-        <!-- 3x3 Grid Container (9 Boxes) -->
-        <GridLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:columnCount="3"
-            android:rowCount="3"
-            android:alignmentMode="alignMargins"
-            android:useDefaultMargins="true">
+            android:layout_height="match_parent">
 
-            <!-- 1. AI Studio -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_columnWeight="1"
-                android:layout_margin="4dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="#1F1B3C">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🤖" android:textSize="26sp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="AI Studio" android:textColor="@color/text_white" android:textSize="12sp" android:textStyle="bold" android:layout_marginTop="4dp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="(1 – 25)" android:textColor="#88889D" android:textSize="10sp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- 2. Offline Tools -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_columnWeight="1"
-                android:layout_margin="4dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="#132B2B">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📶" android:textSize="26sp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Offline Tools" android:textColor="@color/text_white" android:textSize="12sp" android:textStyle="bold" android:layout_marginTop="4dp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="(26 – 50)" android:textColor="#88889D" android:textSize="10sp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- 3. Privacy Tools -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_columnWeight="1"
-                android:layout_margin="4dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="#2A1B38">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🎭" android:textSize="26sp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Privacy Tools" android:textColor="@color/text_white" android:textSize="12sp" android:textStyle="bold" android:layout_marginTop="4dp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="(51 – 70)" android:textColor="#88889D" android:textSize="10sp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- 4. Reels -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_home_reels"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_columnWeight="1"
-                android:layout_margin="4dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="#331424">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="▶️" android:textSize="26sp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Reels" android:textColor="@color/text_white" android:textSize="12sp" android:textStyle="bold" android:layout_marginTop="4dp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="(Direct Play)" android:textColor="#88889D" android:textSize="10sp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- 5. Movies -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_home_movies"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_columnWeight="1"
-                android:layout_margin="4dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="#14213D">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🎬" android:textSize="26sp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Movies" android:textColor="@color/text_white" android:textSize="12sp" android:textStyle="bold" android:layout_marginTop="4dp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="(Direct Play)" android:textColor="#88889D" android:textSize="10sp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- 6. Chat -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_home_chat"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_columnWeight="1"
-                android:layout_margin="4dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="#132E27">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="💬" android:textSize="26sp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Chat" android:textColor="@color/text_white" android:textSize="12sp" android:textStyle="bold" android:layout_marginTop="4dp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="(Secure)" android:textColor="#88889D" android:textSize="10sp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- 7. Social Savers -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_columnWeight="1"
-                android:layout_margin="4dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="#382613">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📥" android:textSize="26sp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Social Savers" android:textColor="@color/text_white" android:textSize="12sp" android:textStyle="bold" android:layout_marginTop="4dp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="(71 – 90)" android:textColor="#88889D" android:textSize="10sp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- 8. Office & PDF -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_columnWeight="1"
-                android:layout_margin="4dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="#1A2B35">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📑" android:textSize="26sp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Office &amp; PDF" android:textColor="@color/text_white" android:textSize="12sp" android:textStyle="bold" android:layout_marginTop="4dp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="(91 – 110)" android:textColor="#88889D" android:textSize="10sp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- 9. Desi Life -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_columnWeight="1"
-                android:layout_margin="4dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="#352516">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="₹" android:textColor="#F59E0B" android:textSize="26sp" android:textStyle="bold" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Desi Life" android:textColor="@color/text_white" android:textSize="12sp" android:textStyle="bold" android:layout_marginTop="4dp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="(111 – 130)" android:textColor="#88889D" android:textSize="10sp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-        </GridLayout>
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chapter 4: Moving Charges and Magnetism&#10;&#10;1. Biot-Savart Law:&#10;dB = (mu0 / 4pi) * (I dl sin theta) / r2&#10;&#10;2. Ampere Circuital Law:&#10;∮ B . dl = mu0 * I&#10;&#10;3. Lorentz Force:&#10;F = q(E + v x B)&#10;&#10;Chapter 5: Thermodynamics&#10;&#10;1. First Law:&#10;dQ = dU + dW"
+                android:textColor="#333333"
+                android:textSize="15sp"
+                android:lineSpacingExtra="6dp" />
+        </ScrollView>
     </LinearLayout>
-</ScrollView>
-      
+
+</RelativeLayout>
