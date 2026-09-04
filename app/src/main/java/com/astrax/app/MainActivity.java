@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private View emergencyStudyLayer;
     private BottomNavigationView bottomNav;
 
-    // 165+ Tools Search Database
+    // 165+ Tools Database
     private final String[] allToolsDatabase = {
         "🤖 AI Studio: AI Text Writer & Chat",
         "🤖 AI Studio: AI Image Generator",
@@ -71,81 +71,90 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        homeLayout = findViewById(R.id.content_frame);
+        homeLayout = findViewById(R.id.layout_home_screen);
+        layoutToolsHub = findViewById(R.id.layout_tools_hub);
+        toolsCategoryTitle = findViewById(R.id.tools_category_title);
+        toolsListText = findViewById(R.id.tools_list_text);
         otherScreenTitle = findViewById(R.id.other_screen_title);
         bottomNav = findViewById(R.id.bottom_navigation);
         FloatingActionButton fabPanic = findViewById(R.id.fab_panic);
         emergencyStudyLayer = findViewById(R.id.emergency_study_layer);
         Button btnCloseEmergency = findViewById(R.id.btn_close_emergency);
+        Button btnBackToHome = findViewById(R.id.btn_back_to_home);
 
-        // Header VIP Crown
-        bindByName("btn_vip_crown", v -> 
+        // Make sure Home is explicitly visible right on start
+        showHomeScreen();
+
+        // VIP Crown Click
+        safeClick("btn_vip_crown", v -> 
             Toast.makeText(this, "👑 AstraX VIP: ₹9/Day Pass | ₹99/Month All-Access", Toast.LENGTH_LONG).show());
 
-        // Header Search (🔍)
-        bindByName("btn_search", v -> openSearchDialog());
+        // Live Search Click (🔍)
+        safeClick("btn_search", v -> openSearchDialog());
 
-        // Header Menu (⋮)
-        bindByName("btn_menu", v -> 
-            Toast.makeText(this, "AstraX SuperApp v1.0 • Stealth Engine Active", Toast.LENGTH_SHORT).show());
+        // Header 3-Dot Menu
+        safeClick("btn_menu", v -> 
+            Toast.makeText(this, "AstraX SuperApp v1.0 • Privacy Engine Active", Toast.LENGTH_SHORT).show());
 
-        // Hero Banner & View All
-        bindByName("hero_tools_banner", v -> openCategory(
+        // Back button inside Tools Hub
+        if (btnBackToHome != null) {
+            btnBackToHome.setOnClickListener(v -> showHomeScreen());
+        }
+
+        // Hero Banner & View All Click
+        safeClick("hero_tools_banner", v -> openCategory(
             "🪐 AstraX 165+ Master Hub",
-            "AstraX ke sabhi 165 tools active hain. Kisi bhi category ya 🔍 Search se turant chalayein!"
+            "AstraX ke sabhi 165 tools active hain. Kisi bhi category card par click karo ya Search (🔍) se seedhe kholo!"
         ));
-        bindByName("btn_view_all", v -> openCategory(
+        safeClick("btn_view_all", v -> openCategory(
             "🪐 All Categories",
             "• AI Studio (1 - 25)\n• Offline Tools (26 - 50)\n• Privacy Tools (51 - 70)\n• Social Savers (71 - 90)\n• Office & PDF (91 - 110)\n• Desi Life (111 - 130)"
         ));
 
-        // 9 Category Boxes (Zero Build Errors via Dynamic Lookup)
-        bindByName("card_home_ai", v -> openCategory(
+        // 9 Category Boxes
+        safeClick("card_home_ai", v -> openCategory(
             "🤖 AI Studio (1 – 25)",
             "1. AI Text Writer & Chat\n2. AI Image Generator\n3. AI Background Remover\n4. AI Voice & Speech Clone\n5. AI Code Explainer\n6. AI Essay & Homework Solver\n7. AI Photo Enhancer\n8. AI Face Swap\n...aur 17 AI tools!"
         ));
 
-        bindByName("card_home_offline", v -> openCategory(
+        safeClick("card_home_offline", v -> openCategory(
             "📶 Offline Tools (26 – 50)",
             "26. Flashlight Strobe & SOS\n27. Offline Unit Converter\n28. Compass & Leveler\n29. Scientific Calculator\n30. Offline Notepad Vault\n31. Stop Watch & Timer\n...aur 19 offline tools!"
         ));
 
-        bindByName("card_home_privacy", v -> openCategory(
+        safeClick("card_home_privacy", v -> openCategory(
             "🎭 Privacy Tools (51 – 70)",
             "51. Screen Peep Blocker\n52. Intruder Selfie Catcher\n53. Fake Incoming Call\n54. App Locker\n55. Fake GPS Spoof Guide\n56. EXIF Photo Cleaner\n...aur 14 privacy tools!"
         ));
 
-        bindByName("card_home_reels", v -> {
+        safeClick("card_home_reels", v -> {
             if (bottomNav != null) bottomNav.setSelectedItemId(R.id.nav_reels);
         });
 
-        bindByName("card_home_movies", v -> {
+        safeClick("card_home_movies", v -> {
             if (bottomNav != null) bottomNav.setSelectedItemId(R.id.nav_movies);
         });
 
-        bindByName("card_home_chat", v -> {
+        safeClick("card_home_chat", v -> {
             if (bottomNav != null) bottomNav.setSelectedItemId(R.id.nav_chat);
         });
 
-        bindByName("card_home_savers", v -> openCategory(
+        safeClick("card_home_savers", v -> openCategory(
             "📥 Social Savers (71 – 90)",
             "71. Insta HD DP Viewer\n72. Status & Story Saver\n73. Direct WhatsApp Chat\n74. Viral Hashtags Generator\n75. Video to MP3 Extractor\n...aur 15 social tools!"
         ));
 
-        bindByName("card_home_office", v -> openCategory(
+        safeClick("card_home_office", v -> openCategory(
             "📑 Office & PDF Tools (91 – 110)",
             "91. Images to PDF Converter\n92. PDF Compressor\n93. PDF Password Lock\n94. QR Code Scanner\n95. Digital Signature Maker\n...aur 15 office tools!"
         ));
 
-        bindByName("card_home_desi", v -> openCategory(
+        safeClick("card_home_desi", v -> openCategory(
             "₹ Desi Life & Utilities (111 – 130)",
             "111. Bijli Bill Calculator\n112. EMI & Byaj Ganit\n113. Gold Price & GST Calculator\n114. Vehicle RC & Challan Status\n115. Train PNR & Live Status\n...aur 15 desi tools!"
         ));
 
-        // Back button inside Tools View
-        bindByName("btn_back_to_home", v -> showHomeScreen());
-
-        // Bottom Navigation Tabs
+        // Bottom Navigation
         if (bottomNav != null) {
             bottomNav.setOnItemSelectedListener(item -> {
                 int itemId = item.getItemId();
@@ -153,7 +162,8 @@ public class MainActivity extends AppCompatActivity {
                     showHomeScreen();
                     return true;
                 } else {
-                    hideAllContent();
+                    if (homeLayout != null) homeLayout.setVisibility(View.GONE);
+                    if (layoutToolsHub != null) layoutToolsHub.setVisibility(View.GONE);
                     if (otherScreenTitle != null) {
                         otherScreenTitle.setVisibility(View.VISIBLE);
                         if (itemId == R.id.nav_reels) otherScreenTitle.setText("🎬 Reels Player");
@@ -166,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-        // Stealth Panic Mode
+        // Panic Mode
         if (fabPanic != null) {
             fabPanic.setOnClickListener(v -> {
                 if (emergencyStudyLayer != null) emergencyStudyLayer.setVisibility(View.VISIBLE);
@@ -179,11 +189,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Dynamic Binding to prevent compile-time symbol missing errors
-    private void bindByName(String idName, View.OnClickListener listener) {
-        int resId = getResources().getIdentifier(idName, "id", getPackageName());
-        if (resId != 0) {
-            View view = findViewById(resId);
+    private void safeClick(String idName, View.OnClickListener listener) {
+        int id = getResources().getIdentifier(idName, "id", getPackageName());
+        if (id != 0) {
+            View view = findViewById(id);
             if (view != null) {
                 view.setOnClickListener(listener);
             }
@@ -246,52 +255,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openCategory(String title, String toolsList) {
-        hideAllContent();
-        int hubId = getResources().getIdentifier("layout_tools_hub", "id", getPackageName());
-        int titleId = getResources().getIdentifier("tools_category_title", "id", getPackageName());
-        int textId = getResources().getIdentifier("tools_list_text", "id", getPackageName());
+        if (homeLayout != null) homeLayout.setVisibility(View.GONE);
+        if (otherScreenTitle != null) otherScreenTitle.setVisibility(View.GONE);
+        if (layoutToolsHub != null) layoutToolsHub.setVisibility(View.VISIBLE);
 
-        if (hubId != 0) {
-            View hubView = findViewById(hubId);
-            if (hubView != null) hubView.setVisibility(View.VISIBLE);
-        }
-        if (titleId != 0) {
-            TextView tv = findViewById(titleId);
-            if (tv != null) tv.setText(title);
-        }
-        if (textId != 0) {
-            TextView tv = findViewById(textId);
-            if (tv != null) tv.setText(toolsList);
-        }
+        if (toolsCategoryTitle != null) toolsCategoryTitle.setText(title);
+        if (toolsListText != null) toolsListText.setText(toolsList);
     }
 
     private void showHomeScreen() {
-        int homeId = getResources().getIdentifier("layout_home_screen", "id", getPackageName());
-        int hubId = getResources().getIdentifier("layout_tools_hub", "id", getPackageName());
-
-        if (homeId != 0) {
-            View hv = findViewById(homeId);
-            if (hv != null) hv.setVisibility(View.VISIBLE);
-        }
-        if (hubId != 0) {
-            View hubView = findViewById(hubId);
-            if (hubView != null) hubView.setVisibility(View.GONE);
-        }
+        if (homeLayout != null) homeLayout.setVisibility(View.VISIBLE);
+        if (layoutToolsHub != null) layoutToolsHub.setVisibility(View.GONE);
         if (otherScreenTitle != null) otherScreenTitle.setVisibility(View.GONE);
-    }
-
-    private void hideAllContent() {
-        int homeId = getResources().getIdentifier("layout_home_screen", "id", getPackageName());
-        int hubId = getResources().getIdentifier("layout_tools_hub", "id", getPackageName());
-
-        if (homeId != 0) {
-            View hv = findViewById(homeId);
-            if (hv != null) hv.setVisibility(View.GONE);
-        }
-        if (hubId != 0) {
-            View hubView = findViewById(hubId);
-            if (hubView != null) hubView.setVisibility(View.GONE);
-        }
     }
 
     @Override
@@ -300,14 +275,10 @@ public class MainActivity extends AppCompatActivity {
             emergencyStudyLayer.setVisibility(View.GONE);
             return;
         }
-        int hubId = getResources().getIdentifier("layout_tools_hub", "id", getPackageName());
-        if (hubId != 0) {
-            View hubView = findViewById(hubId);
-            if (hubView != null && hubView.getVisibility() == View.VISIBLE) {
-                showHomeScreen();
-                return;
-            }
+        if (layoutToolsHub != null && layoutToolsHub.getVisibility() == View.VISIBLE) {
+            showHomeScreen();
+            return;
         }
         super.onBackPressed();
     }
-            }
+}
