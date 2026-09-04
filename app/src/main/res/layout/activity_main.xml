@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#0B0B12">
 
-    <!-- 1. HOME SCREEN -->
+    <!-- 1. MAIN HOME SCREEN -->
     <ScrollView
         android:id="@+id/view_home"
         android:layout_width="match_parent"
@@ -80,7 +80,7 @@
                 </LinearLayout>
             </RelativeLayout>
 
-            <!-- Banner -->
+            <!-- 165+ Banner -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/hero_tools_banner"
                 android:layout_width="match_parent"
@@ -112,7 +112,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="AI • Offline • Privacy • Savers • Office\nDesi • Media • System • Pro"
+                            android:text="AI • Offline • Privacy • Savers • Office&#10;Desi • Media • System • Pro"
                             android:textColor="#C4B5FD"
                             android:textSize="11sp" />
                     </LinearLayout>
@@ -127,7 +127,7 @@
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Title -->
+            <!-- Folders Section Title -->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -373,4 +373,4 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_p
+            a
