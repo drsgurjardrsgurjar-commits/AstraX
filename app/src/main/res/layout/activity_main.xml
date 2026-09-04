@@ -5,19 +5,66 @@
     android:layout_height="match_parent"
     android:background="@color/black_bg">
 
-    <!-- Screen Content Container -->
+    <!-- Main Content Frame -->
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_navigation">
 
-        <!-- Include Rich AstraX Home Screen -->
+        <!-- 1. AstraX Home Layout -->
         <include
             android:id="@+id/layout_home_screen"
             layout="@layout/fragment_home" />
 
-        <!-- Simple Text for Other Tabs -->
+        <!-- 2. Tools Viewer Screen (Opens on card clicks) -->
+        <LinearLayout
+            android:id="@+id/layout_tools_hub"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/black_bg"
+            android:padding="16dp"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:id="@+id/tools_category_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btn_back_to_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_alignParentEnd="true"
+                    android:text="← Home"
+                    android:textSize="12sp"
+                    android:backgroundTint="#2A1B4E" />
+            </RelativeLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tools_list_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#D1D5DB"
+                    android:textSize="15sp"
+                    android:lineSpacingExtra="8dp" />
+            </ScrollView>
+        </LinearLayout>
+
+        <!-- 3. Other Bottom Nav Screens -->
         <TextView
             android:id="@+id/other_screen_title"
             android:layout_width="wrap_content"
@@ -29,7 +76,7 @@
             android:visibility="gone" />
     </FrameLayout>
 
-    <!-- 5 Navigation Tabs -->
+    <!-- 5 Bottom Navigation Tabs -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
@@ -41,7 +88,7 @@
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_nav_menu" />
 
-    <!-- Floating Panic Switch (Stealth Trigger) -->
+    <!-- Floating Panic Switch -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_panic"
         android:layout_width="wrap_content"
@@ -55,7 +102,7 @@
         app:tint="@color/text_white"
         app:fabSize="mini" />
 
-    <!-- Emergency Study Mode Layer (Full-Screen NCERT Notes) -->
+    <!-- Emergency Study Layer -->
     <LinearLayout
         android:id="@+id/emergency_study_layer"
         android:layout_width="match_parent"
@@ -65,7 +112,6 @@
         android:padding="20dp"
         android:visibility="gone">
 
-        <!-- Top Bar with Safe Close -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -89,24 +135,17 @@
                 android:backgroundTint="#2C3E50" />
         </RelativeLayout>
 
-        <!-- Scrollable Realistic Physics Notes -->
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Chapter 4: Moving Charges and Magnetism&#10;&#10;1. Biot-Savart Law:&#10;The magnetic field dB due to a current element carrying steady current I at point P is:&#10;dB = (mu0 / 4pi) * (I dl sin theta) / r2&#10;&#10;2. Ampere Circuital Law:&#10;The line integral of magnetic induction around any closed path is:&#10;B . dl = mu0 * I&#10;&#10;3. Lorentz Force:&#10;When a charge q moves with velocity v in electric and magnetic fields:&#10;F = q(E + v x B)&#10;&#10;Chapter 5: Thermodynamics and Heat Laws&#10;&#10;1. First Law of Thermodynamics:&#10;dQ = dU + dW&#10;where dQ is heat supplied, dU is change in internal energy, and dW is work done.&#10;&#10;2. Isothermal Process:&#10;Temperature remains constant (dT = 0). Internal energy change dU = 0.&#10;W = nRT ln(V2/V1)&#10;&#10;3. Adiabatic Process:&#10;No heat enters or leaves the system (dQ = 0).&#10;PV^gamma = Constant"
-                    android:textColor="#333333"
-                    android:textSize="15sp"
-                    android:lineSpacingExtra="6dp" />
-            </LinearLayout>
+                android:text="Chapter 4: Moving Charges and Magnetism&#10;&#10;1. Biot-Savart Law:&#10;dB = (mu0 / 4pi) * (I dl sin theta) / r2&#10;&#10;2. Ampere Circuital Law:&#10;∮ B . dl = mu0 * I&#10;&#10;3. Lorentz Force:&#10;F = q(E + v x B)&#10;&#10;Chapter 5: Thermodynamics&#10;&#10;1. First Law:&#10;dQ = dU + dW"
+                android:textColor="#333333"
+                android:textSize="15sp"
+                android:lineSpacingExtra="6dp" />
         </ScrollView>
     </LinearLayout>
 
