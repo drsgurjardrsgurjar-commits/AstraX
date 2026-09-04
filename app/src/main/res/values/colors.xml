@@ -1,8 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black_bg">#0B0B12</color>
-    <color name="card_bg">#161622</color>
-    <color name="accent_purple">#6C5CE7</color>
-    <color name="text_white">#FFFFFF</color>
-</resources>
+    <!-- Core background & surfaces -->
+    <color name="amoled_black">#0B0B12</color>
+    <color name="amoled_black_alt">#09090F</color>
+    <color name="surface_dark">#161622</color>
+    <color name="surface_dark_alt">#1A1A2E</color>
 
+    <!-- Tile / Folder gradients (start -> end) -->
+    <color name="tile_ai_start">#1F1B3C</color>
+    <color name="tile_ai_end">#3B1E78</color>
+
+    <color name="tile_offline_start">#102E26</color>
+    <color name="tile_offline_end">#0F4C3A</color>
+
+    <color name="tile_privacy_start">#2A1B38</color>
+    <color name="tile_privacy_end">#4A154B</color>
+
+    <color name="tile_savers_start">#382013</color>
+    <color name="tile_savers_end">#5A2C0D</color>
+
+    <color name="tile_office_start">#132B38</color>
+    <color name="tile_office_end">#124357</color>
+
+    <color name="tile_desi_start">#362512</color>
+    <color name="tile_desi_end">#573A12</color>
+
+    <color name="tile_boost_start">#131B38</color>
+    <color name="tile_boost_end">#1A2D63</color>
+
+    <color name="tile_media_start">#331326</color>
+    <color name="tile_media_end">#5E153D</color>
+
+    <!-- Accents & neon/glow -->
+    <color name="accent_neon_purple">#A78BFA</color>
+    <color name="icon_bright_purple">#C084FC</color>
+    <color name="icon_neon_green">#39FF14</color>
+    <color name="icon_neon_blue">#00B0FF</color>
+    <color name="icon_bright_orange">#FF8A00</color>
+    <color name="icon_bright_gold">#F59E0B</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#88889D</color>
+
+    <!-- Circular meter highlights -->
+    <color name="meter_cyan">#00E5FF</color>
+    <color name="meter_green">#00C853</color>
+    <color name="meter_blue">#2979FF</color>
+    <color name="meter_orange">#FF8A00</color>
+
+    <!-- Bottom navigation / glass -->
+    <color name="bottom_nav_bg">#0F0F16CC</color>
+    <color name="bottom_nav_active_glow">#7C4DFF</color>
+
+    <!-- Overlays / subtle strokes -->
+    <color name="stroke_subtle">#21212B</color>
+    <color name="overlay_frost">#151524CC</color>
+</resources>
