@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "406894020255",
+    "project_id": "dmastrax-d9a74",
+    "storage_bucket": "dmastrax-d9a74.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:406894020255:android:ce2acd4a5f6ae2a17bc4aa",
+        "android_client_info": {
+          "package_name": "com.dm.astrax"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2HFZw0UCkWSp0FomeAccb4ZPmoIwFZiM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
