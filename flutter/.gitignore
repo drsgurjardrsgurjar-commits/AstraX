@@ -1,0 +1,11 @@
+/.dart_tool/
+/.idea/
+/.packages
+/build/
+/.vscode/
+/.flutter-plugins
+/.flutter-plugins-dependencies
+/.pub-cache/
+/android/.gradle
+/android/app/google-services.json
+/ios/Runner/GoogleService-Info.plist
